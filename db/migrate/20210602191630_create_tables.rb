@@ -19,24 +19,24 @@ class CreateTables < ActiveRecord::Migration[6.1]
       t.belongs_to :subscription
     end
 
-    create_table :notification_targets do |t|
-      t.string :notification_type
+    create_table :notify_targets do |t|
+      t.string :notify_type
       t.integer :target_id
       t.timestamps
 
       t.belongs_to :admin_user
     end
 
-    create_table :slack_notification_targets do |t|
+    create_table :slack_notify_targets do |t|
       t.string :webhook_url
       t.timestamps
 
-      t.belongs_to :notification_target
+      t.belongs_to :notify_target
     end
 
-    create_table :notification_targets_of_subscriptions do |t|
+    create_table :notify_targets_of_subscriptions, id: false do |t|
       t.belongs_to :subscription
-      t.belongs_to :notification_target
+      t.belongs_to :notify_target
     end
   end
 end
