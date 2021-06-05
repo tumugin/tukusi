@@ -13,10 +13,14 @@ class AdminUser < ApplicationRecord
     USER_LEVEL_SUPERVISOR,
   ]
 
+  # 管理者ユーザが特権レベルを持っているかどうか
+  # @return bool
   def is_user_administrator
     user_level == USER_LEVEL_ADMINISTRATOR
   end
 
+  # 管理者ユーザが監督者レベルを持っているかどうか
+  # @return bool
   def is_user_supervisor
     user_level == USER_LEVEL_SUPERVISOR
   end
