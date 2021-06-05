@@ -43,9 +43,10 @@ ActiveRecord::Schema.define(version: 2021_06_02_192955) do
 
   create_table "crawl_logs", force: :cascade do |t|
     t.integer "duration"
-    t.string "result"
-    t.datetime "start_datetime"
-    t.datetime "end_datetime"
+    t.string "result", null: false
+    t.datetime "started_at", null: false
+    t.datetime "ended_at"
+    t.string "captured_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "subscription_id"
@@ -53,8 +54,8 @@ ActiveRecord::Schema.define(version: 2021_06_02_192955) do
   end
 
   create_table "notify_targets", force: :cascade do |t|
-    t.string "notify_type"
-    t.integer "target_id"
+    t.string "notify_type", null: false
+    t.integer "target_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "admin_user_id"
@@ -69,7 +70,7 @@ ActiveRecord::Schema.define(version: 2021_06_02_192955) do
   end
 
   create_table "slack_notify_targets", force: :cascade do |t|
-    t.string "webhook_url"
+    t.string "webhook_url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "notify_target_id"
@@ -77,9 +78,10 @@ ActiveRecord::Schema.define(version: 2021_06_02_192955) do
   end
 
   create_table "subscriptions", force: :cascade do |t|
-    t.string "target_url"
-    t.string "target_html_selector"
-    t.integer "timeout_seconds"
+    t.string "target_url", null: false
+    t.string "target_selector"
+    t.integer "timeout_seconds", null: false
+    t.string "subscription_type", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "admin_user_id"
