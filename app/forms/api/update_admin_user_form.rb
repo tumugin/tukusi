@@ -8,7 +8,8 @@ class Api::UpdateAdminUserForm
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, strong_password: true
 
-  def save
+  def save!
+    validate!
     admin_user = AdminUser.find(id)
     unless name.nil?
       admin_user.name = name

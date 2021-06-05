@@ -10,14 +10,14 @@ class Api::AdminUsersController < ActionController::API
   end
 
   def create
-    admin_user = Api::CreateAdminUserForm.new(admin_user_params).save
+    admin_user = Api::CreateAdminUserForm.new(admin_user_params).save!
     render json: admin_user
   end
 
   def update
     admin_user = Api::UpdateAdminUserForm
                    .new(id: params[:id], **admin_user_params)
-                   .save
+                   .save!
     render json: admin_user
   end
 

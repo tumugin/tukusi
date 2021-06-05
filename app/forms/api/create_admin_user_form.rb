@@ -8,12 +8,17 @@ class Api::CreateAdminUserForm
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, strong_password: true
 
-  def save
-    AdminUser.create!(
-      :name => name,
-      :user_level => user_level,
-      :email => :email,
-      :password => :password,
+  def save!
+    validate!
+    admin_user = AdminUser.new(
+      name: name,
+      user_level: user_level,
+      email: email,
+      password: password,
+      jti: SecureRandom.uuid
     )
+    admin_user.skip_confirmation!
+    admin_user.save!
+    admin_user
   end
 end
