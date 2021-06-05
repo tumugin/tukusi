@@ -1,6 +1,8 @@
 class CreateTables < ActiveRecord::Migration[6.1]
   def change
     create_table :subscriptions do |t|
+      t.boolean :enabled, null: false
+      t.integer :check_interval_seconds, null: false
       t.string :target_url, null: false
       t.string :target_selector
       t.integer :timeout_seconds, null: false

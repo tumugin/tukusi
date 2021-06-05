@@ -79,6 +79,8 @@ ActiveRecord::Schema.define(version: 2021_06_02_192955) do
   end
 
   create_table "subscriptions", force: :cascade do |t|
+    t.boolean "enabled", null: false
+    t.integer "check_interval_seconds", null: false
     t.string "target_url", null: false
     t.string "target_selector"
     t.integer "timeout_seconds", null: false
