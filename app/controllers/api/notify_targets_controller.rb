@@ -23,11 +23,17 @@ class Api::NotifyTargetsController < Api::ApplicationController
   end
 
   def update
-
+    notify_target = Api::UpdateNotifyTargetForm
+                      .new({
+                             **notify_target_params,
+                             target_detail: Api::UpdateSlackNotifyTargetForm.new(notify_target_detail)
+                           })
+                      .save!
+    render json: notify_target
   end
 
   def destroy
-    NotifyTarget.find(params[:id]).delete
+    NotifyTarget.find(params[:id]).destroy!
   end
 
   private
