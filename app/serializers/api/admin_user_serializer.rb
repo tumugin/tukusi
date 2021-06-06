@@ -1,3 +1,3 @@
 class Api::AdminUserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :user_level, :created_at
+  attributes :id, :name, :email, :user_level, :created_at
 end

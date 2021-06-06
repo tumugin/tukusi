@@ -16,7 +16,7 @@ Rails.application.routes.draw do
         resources :admin_users, except: [:new, :edit]
       end
 
-      resource :profile, only: :show
+      resource :profile, only: [:show, :update]
     end
   end
 end

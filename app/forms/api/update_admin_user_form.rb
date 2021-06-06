@@ -3,10 +3,10 @@ class Api::UpdateAdminUserForm
 
   attr_accessor :id, :name, :user_level, :email, :password
 
-  validates :name, length: { minimum: 1 }
-  validates :user_level, inclusion: { in: AdminUser::USER_LEVELS }
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, strong_password: true
+  validates :name, length: { minimum: 1 }, allow_nil: true
+  validates :user_level, inclusion: { in: AdminUser::USER_LEVELS }, allow_nil: true
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, allow_nil: true
+  validates :password, strong_password: true, allow_nil: true
 
   def save!
     validate!
