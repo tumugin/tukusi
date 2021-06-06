@@ -1,4 +1,4 @@
-class Api::AdminUsersController < ActionController::API
+class Api::AdminUsersController < Api::ApplicationController
   def index
     admin_users = AdminUser.page(params[:page] || 1)
     render json: admin_users
