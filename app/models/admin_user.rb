@@ -4,7 +4,9 @@ class AdminUser < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable, :trackable,
-         :jwt_authenticatable, jwt_revocation_strategy: self
+         :jwt_authenticatable,
+         # 一旦今は要らないのでNullにしておく
+         jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
 
   USER_LEVEL_ADMINISTRATOR = 'administrator'
   USER_LEVEL_SUPERVISOR = 'supervisor'
