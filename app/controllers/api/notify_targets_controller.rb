@@ -1,6 +1,8 @@
 class Api::NotifyTargetsController < Api::ApplicationController
   def index
-    notify_targets = NotifyTarget.page(params[:page] || 1)
+    notify_targets = NotifyTarget
+                       .eager_load(:slack_notify_target)
+                       .page(params[:page] || 1)
     render json: notify_targets
   end
 
@@ -14,7 +16,7 @@ class Api::NotifyTargetsController < Api::ApplicationController
                       .new({
                              **notify_target_params,
                              admin_user_id: current_admin_user.id,
-                             target_detail: notify_target_detail
+                             target_detail: Api::CreateSlackNotifyTargetForm.new(notify_target_detail)
                            })
                       .save!
     render json: notify_target

@@ -1,5 +1,6 @@
 class NotifyTarget < ApplicationRecord
   belongs_to :admin_user
+  has_one :slack_notify_target
   has_many :subscriptions, through: :notify_targets_of_subscriptions
 
   NOTIFY_TYPE_SLACK = 'slack'
@@ -12,7 +13,7 @@ class NotifyTarget < ApplicationRecord
   def target_detail
     case notify_type
     when NOTIFY_TYPE_SLACK then
-      return SlackNotifyTarget.find(target_id)
+      return slack_notify_target
     else
       return nil
     end

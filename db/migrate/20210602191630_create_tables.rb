@@ -26,7 +26,6 @@ class CreateTables < ActiveRecord::Migration[6.1]
     create_table :notify_targets do |t|
       t.string :name, null: false
       t.string :notify_type, null: false
-      t.integer :target_id, null: false
       t.timestamps
 
       t.belongs_to :admin_user
