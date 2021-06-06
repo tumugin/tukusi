@@ -9,7 +9,7 @@ class NotifyTarget < ApplicationRecord
   # N+1クエリになってしまうので不必要に使用しないこと
   # @return SlackNotifyTarget 通知先がSlackの場合
   # @return nil 通知先が何らかの理由によって存在しない場合(DBに不整合が生じない限り無い)
-  def target_details
+  def target_detail
     case notify_type
     when NOTIFY_TYPE_SLACK then
       return SlackNotifyTarget.find(target_id)

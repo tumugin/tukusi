@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       end
 
       resource :profile, only: [:show, :update]
+      resources :notify_targets, except: [:new, :edit]
     end
   end
 end

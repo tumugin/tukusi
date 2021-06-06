@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2021_06_02_192955) do
   end
 
   create_table "notify_targets", force: :cascade do |t|
+    t.string "name", null: false
     t.string "notify_type", null: false
     t.integer "target_id", null: false
     t.datetime "created_at", precision: 6, null: false
