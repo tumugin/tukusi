@@ -4,8 +4,10 @@ class AdminUser < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :confirmable, :lockable, :timeoutable, :trackable,
+         :confirmable, :lockable, :timeoutable,
          :jwt_authenticatable,
+         # FIXME: API経由の操作で毎回updateが走るので無効化. Devise 5.0で直るらしいが...
+         # :trackable,
          # 一旦今は要らないのでNullにしておく
          jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
 
