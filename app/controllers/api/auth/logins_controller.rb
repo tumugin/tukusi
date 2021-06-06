@@ -17,10 +17,6 @@ class Api::Auth::LoginsController < Api::ApplicationController
     { scope: scope, store: false }
   end
 
-  def current_token
-    request.env['warden-jwt_auth.token']
-  end
-
   def scope
     :admin_user
   end

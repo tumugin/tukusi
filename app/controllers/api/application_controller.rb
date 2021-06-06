@@ -11,7 +11,9 @@ class Api::ApplicationController < ActionController::API
   end
 
   def disable_devise_trackable
-    if request.has_header?('Authorization')
+    # devise5で直るはず...
+    # ref: https://github.com/heartcombo/devise/pull/4987
+    if request.authorization
       request.env['warden'].request.env['devise.skip_trackable'] = true
     end
   end
