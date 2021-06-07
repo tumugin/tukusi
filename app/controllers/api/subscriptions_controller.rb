@@ -31,10 +31,11 @@ class Api::SubscriptionsController < Api::ApplicationController
     params[:subscription].permit(
       :enabled,
       :check_interval_seconds,
+      :timeout_seconds,
       :target_url,
       :target_selector,
       :subscription_type,
-      :notify_target_ids,
+      notify_target_ids: [],
     )
   end
 end
