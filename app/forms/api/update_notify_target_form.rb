@@ -17,19 +17,7 @@ class Api::UpdateNotifyTargetForm
         name: name,
         notify_type: notify_type
       )
-
-      case notify_type
-      when NotifyTarget::NOTIFY_TYPE_SLACK
-        if notify_target.slack_notify_target.nil?
-          SlackNotifyTarget
-            .new(webhook_url: target_detail.webhook_url, notify_target: notify_target)
-            .save!
-        else
-          notify_target
-            .slack_notify_target
-            .update!(webhook_url: target_detail.webhook_url)
-        end
-      end
+      target_detail.save!(notify_target)
     end
 
     notify_target

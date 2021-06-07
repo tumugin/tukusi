@@ -14,11 +14,7 @@ class Api::CreateNotifyTargetForm
     ActiveRecord::Base.transaction do
       notify_target = NotifyTarget.new(name: name, notify_type: notify_type, admin_user_id: admin_user_id)
       notify_target.save!
-      case notify_type
-      when NotifyTarget::NOTIFY_TYPE_SLACK
-        notify_target_detail = SlackNotifyTarget.new(webhook_url: target_detail.webhook_url, notify_target: notify_target)
-        notify_target_detail.save!
-      end
+      target_detail.save!(notify_target)
       return notify_target
     end
   end
