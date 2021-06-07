@@ -15,7 +15,7 @@ class Api::NotifyTargetsController < Api::ApplicationController
     notify_target = Api::CreateNotifyTargetForm
                       .new({
                              **notify_target_params,
-                             admin_user_id: current_admin_user.id,
+                             admin_user: current_admin_user,
                              target_detail: Api::CreateSlackNotifyTargetForm.new(notify_target_detail)
                            })
                       .save!
