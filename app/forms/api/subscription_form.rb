@@ -20,7 +20,7 @@ class Api::SubscriptionForm
   end
 
   def needs_admin_user_check?
-    !id.nil?
+    id.nil?
   end
 
   def needs_target_selector_check?

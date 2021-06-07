@@ -1,6 +1,7 @@
 class Api::SubscriptionsController < Api::ApplicationController
   def index
     subscriptions = Subscription
+                      .preload(:notify_targets)
                       .page(params[:page] || 1)
     render json: subscriptions
   end
