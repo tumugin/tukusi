@@ -26,7 +26,8 @@ class Api::NotifyTargetsController < Api::ApplicationController
     notify_target = Api::UpdateNotifyTargetForm
                       .new({
                              **notify_target_params,
-                             target_detail: Api::UpdateSlackNotifyTargetForm.new(notify_target_detail)
+                             target_detail: Api::UpdateSlackNotifyTargetForm.new(notify_target_detail),
+                             id: params[:id]
                            })
                       .save!
     render json: notify_target

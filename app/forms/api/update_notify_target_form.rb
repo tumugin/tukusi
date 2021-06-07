@@ -3,9 +3,10 @@ class Api::UpdateNotifyTargetForm
 
   attr_accessor :id, :name, :notify_type, :target_detail
 
-  validates :name, length: { minimum: 1 }
-  validates :notify_type, inclusion: { in: NotifyTarget::NOTIFY_TYPES }
-  validates :target_detail
+  validates :id, presence: true, numericality: { only_integer: true }
+  validates :name, presence: true, length: { minimum: 1 }
+  validates :notify_type, presence: true, inclusion: { in: NotifyTarget::NOTIFY_TYPES }
+  validates :target_detail, presence: true
   validate :target_detail
 
   def save!

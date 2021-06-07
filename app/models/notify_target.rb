@@ -1,6 +1,6 @@
 class NotifyTarget < ApplicationRecord
   belongs_to :admin_user
-  has_one :slack_notify_target
+  has_one :slack_notify_target, dependent: :destroy
   has_many :subscriptions, through: :notify_targets_of_subscriptions
 
   NOTIFY_TYPE_SLACK = 'slack'

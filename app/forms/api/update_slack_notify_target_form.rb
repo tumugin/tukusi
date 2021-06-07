@@ -11,7 +11,7 @@ class Api::UpdateSlackNotifyTargetForm
     slack_notify_target
       .assign_attributes(
         {
-          webhook_url: target_detail.webhook_url,
+          webhook_url: webhook_url,
           notify_target: notify_target
         }
       )
