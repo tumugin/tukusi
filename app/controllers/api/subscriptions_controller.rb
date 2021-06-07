@@ -11,15 +11,30 @@ class Api::SubscriptionsController < Api::ApplicationController
   end
 
   def create
-
+    subscription = Api::SubscriptionForm.new(admin_user: current_admin_user, **subscription_params).save!
+    render json: subscription
   end
 
   def update
-
+    subscription = Api::SubscriptionForm.new(id: params[:id], **subscription_params).save!
+    render json: subscription
   end
 
   def destroy
     subscription = Subscription.find(params[:id])
     subscription.destroy!
+  end
+
+  private
+
+  def subscription_params
+    params[:subscription].permit(
+      :enabled,
+      :check_interval_seconds,
+      :target_url,
+      :target_selector,
+      :subscription_type,
+      :notify_target_ids,
+    )
   end
 end
