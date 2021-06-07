@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
       resource :profile, only: [:show, :update]
       resources :notify_targets, except: [:new, :edit]
+      resources :subscriptions, except: [:new, :edit]
     end
   end
 end
