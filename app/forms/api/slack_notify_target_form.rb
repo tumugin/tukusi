@@ -1,4 +1,4 @@
-class Api::UpdateSlackNotifyTargetForm
+class Api::SlackNotifyTargetForm
   include ActiveModel::Model
 
   attr_accessor :webhook_url
@@ -10,10 +10,8 @@ class Api::UpdateSlackNotifyTargetForm
     slack_notify_target = notify_target.slack_notify_target || SlackNotifyTarget.new
     slack_notify_target
       .assign_attributes(
-        {
-          webhook_url: webhook_url,
-          notify_target: notify_target
-        }
+        webhook_url: webhook_url,
+        notify_target: notify_target
       )
     slack_notify_target.save!
     slack_notify_target

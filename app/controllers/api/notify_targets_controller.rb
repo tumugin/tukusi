@@ -12,21 +12,21 @@ class Api::NotifyTargetsController < Api::ApplicationController
   end
 
   def create
-    notify_target = Api::CreateNotifyTargetForm
+    notify_target = Api::NotifyTargetForm
                       .new({
                              **notify_target_params,
                              admin_user: current_admin_user,
-                             target_detail: Api::CreateSlackNotifyTargetForm.new(notify_target_detail)
+                             target_detail: Api::SlackNotifyTargetForm.new(notify_target_detail)
                            })
                       .save!
     render json: notify_target
   end
 
   def update
-    notify_target = Api::UpdateNotifyTargetForm
+    notify_target = Api::NotifyTargetForm
                       .new({
                              **notify_target_params,
-                             target_detail: Api::UpdateSlackNotifyTargetForm.new(notify_target_detail),
+                             target_detail: Api::SlackNotifyTargetForm.new(notify_target_detail),
                              id: params[:id]
                            })
                       .save!
