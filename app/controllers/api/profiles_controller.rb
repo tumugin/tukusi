@@ -4,7 +4,7 @@ class Api::ProfilesController < Api::ApplicationController
   end
 
   def update
-    admin_user = Api::UpdateAdminUserForm
+    admin_user = Api::UpdateProfileForm
                    .new(id: current_admin_user.id, **update_profile_params)
                    .save!
     render json: admin_user, serializer: Api::AdminUserSerializer
