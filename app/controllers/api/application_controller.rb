@@ -1,4 +1,6 @@
 class Api::ApplicationController < ActionController::API
+  # active_model_serializersの挙動をカスタマイズするConcernを入れる
+  include Api::PaginationConcern
   # Authorizationヘッダが付いているリクエストに関してはDeviseのtrackableを無効化する
   before_action :disable_devise_trackable
   # Sessionを無効化する
