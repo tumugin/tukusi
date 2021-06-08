@@ -14,15 +14,17 @@ class Api::NotifyTargetForm
     id.nil?
   end
 
+  def get_notify_target
+    if !id.nil?
+      NotifyTarget.find(id)
+    else
+      NotifyTarget.new(admin_user: admin_user)
+    end
+  end
+
   def save!
     validate!
-    notify_target = -> {
-      if !id.nil?
-        NotifyTarget.find(id)
-      else
-        NotifyTarget.new(admin_user: admin_user)
-      end
-    }.call
+    notify_target = get_notify_target
     ActiveRecord::Base.transaction do
       notify_target.assign_attributes({ name: name, notify_type: notify_type })
       notify_target.save!

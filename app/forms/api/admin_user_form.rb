@@ -13,17 +13,19 @@ class Api::AdminUserForm
     id.nil?
   end
 
+  def get_admin_user
+    if id.nil?
+      AdminUser.new(
+        jti: SecureRandom.uuid
+      )
+    else
+      AdminUser.find(id)
+    end
+  end
+
   def save!
     validate!
-    admin_user = -> {
-      if id.nil?
-        AdminUser.new(
-          jti: SecureRandom.uuid
-        )
-      else
-        AdminUser.find(id)
-      end
-    }.call
+    admin_user = get_admin_user
     admin_user
       .assign_attributes(
         name: name,
