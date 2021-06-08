@@ -7,6 +7,7 @@ module Api::PaginationConcern
       if options[:json]
         # active_model_serializersの設定を変更
         options[:adapter] = ActiveModelSerializers::Adapter::Json
+        options[:key_transform] = :camel_lower
         # ページネーションが必要な時はmetaを付ける
         if options[:json].try(:current_page) && options[:meta].nil?
           options[:meta] = pagination_meta(options[:json])
