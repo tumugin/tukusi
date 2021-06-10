@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_06_02_192955) do
 
-  create_table "admin_users", force: :cascade do |t|
+  create_table "admin_users", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "user_level", null: false
     t.string "email", default: "", null: false
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_06_02_192955) do
     t.index ["unlock_token"], name: "index_admin_users_on_unlock_token", unique: true
   end
 
-  create_table "crawl_logs", force: :cascade do |t|
+  create_table "crawl_logs", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.integer "duration"
     t.string "result", null: false
     t.datetime "started_at", null: false
@@ -50,35 +50,35 @@ ActiveRecord::Schema.define(version: 2021_06_02_192955) do
     t.string "captured_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "subscription_id"
+    t.bigint "subscription_id"
     t.index ["subscription_id"], name: "index_crawl_logs_on_subscription_id"
   end
 
-  create_table "notify_targets", force: :cascade do |t|
+  create_table "notify_targets", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
     t.string "notify_type", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "admin_user_id"
+    t.bigint "admin_user_id"
     t.index ["admin_user_id"], name: "index_notify_targets_on_admin_user_id"
   end
 
-  create_table "notify_targets_of_subscriptions", id: false, force: :cascade do |t|
-    t.integer "subscription_id"
-    t.integer "notify_target_id"
+  create_table "notify_targets_of_subscriptions", id: false, charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.bigint "subscription_id"
+    t.bigint "notify_target_id"
     t.index ["notify_target_id"], name: "index_notify_targets_of_subscriptions_on_notify_target_id"
     t.index ["subscription_id"], name: "index_notify_targets_of_subscriptions_on_subscription_id"
   end
 
-  create_table "slack_notify_targets", force: :cascade do |t|
+  create_table "slack_notify_targets", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "webhook_url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "notify_target_id"
+    t.bigint "notify_target_id"
     t.index ["notify_target_id"], name: "index_slack_notify_targets_on_notify_target_id"
   end
 
-  create_table "subscriptions", force: :cascade do |t|
+  create_table "subscriptions", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.boolean "enabled", null: false
     t.integer "check_interval_seconds", null: false
     t.string "target_url", null: false
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 2021_06_02_192955) do
     t.string "subscription_type", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "admin_user_id"
+    t.bigint "admin_user_id"
     t.index ["admin_user_id"], name: "index_subscriptions_on_admin_user_id"
   end
 
