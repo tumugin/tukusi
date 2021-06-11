@@ -2,8 +2,9 @@ class Api::Auth::LoginsController < Api::ApplicationController
   prepend_before_action :allow_params_authentication!, only: :create
 
   def create
+    sign_out scope
     resource = warden.authenticate!(auth_options)
-    sign_in(:admin_user, resource)
+    sign_in(scope, resource)
     token = Warden::JWTAuth::UserEncoder
               .new
               .call(current_admin_user, scope, nil)
@@ -14,7 +15,7 @@ class Api::Auth::LoginsController < Api::ApplicationController
   private
 
   def auth_options
-    { scope: scope, store: false }
+    { scope: scope, store: true }
   end
 
   def scope
