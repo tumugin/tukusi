@@ -1,4 +1,6 @@
 class Api::CrawlLogsController < Api::ApplicationController
+  before_action :authenticate_admin_user!
+
   def index
     crawl_logs = subscription.crawl_logs.page(params[:page] || 1)
     render json: crawl_logs

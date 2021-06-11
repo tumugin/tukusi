@@ -1,4 +1,6 @@
 class Api::ProfilesController < Api::ApplicationController
+  before_action :authenticate_admin_user!
+
   def show
     render json: current_admin_user, serializer: Api::AdminUserSerializer
   end

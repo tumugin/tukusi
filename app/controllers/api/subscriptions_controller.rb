@@ -1,4 +1,6 @@
 class Api::SubscriptionsController < Api::ApplicationController
+  before_action :authenticate_admin_user!
+
   def index
     subscriptions = Subscription
                       .preload(:notify_targets)

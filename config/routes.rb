@@ -12,17 +12,11 @@ Rails.application.routes.draw do
     end
     resource :meta, only: :show
 
-    authenticated :admin_user do
-      # 特権管理者のみ許可するAPI
-      authenticated :admin_user, lambda { |user| user.is_user_administrator } do
-        resources :admin_users, except: [:new, :edit]
-      end
-
-      resource :profile, only: [:show, :update]
-      resources :notify_targets, except: [:new, :edit]
-      resources :subscriptions, except: [:new, :edit] do
-        resources :crawl_logs, only: [:index, :show]
-      end
+    resources :admin_users, except: [:new, :edit]
+    resource :profile, only: [:show, :update]
+    resources :notify_targets, except: [:new, :edit]
+    resources :subscriptions, except: [:new, :edit] do
+      resources :crawl_logs, only: [:index, :show]
     end
   end
 end

@@ -1,4 +1,7 @@
 class Api::AdminUsersController < Api::ApplicationController
+  before_action :authenticate_admin_user!
+  before_action -> { render json: {}, status: :unauthorized unless current_admin_user.is_user_administrator }
+
   def index
     admin_users = AdminUser.page(params[:page] || 1)
     render json: admin_users

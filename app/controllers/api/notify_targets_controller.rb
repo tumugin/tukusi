@@ -1,4 +1,6 @@
 class Api::NotifyTargetsController < Api::ApplicationController
+  before_action :authenticate_admin_user!
+
   def index
     notify_targets = NotifyTarget
                        .eager_load(:slack_notify_target)
