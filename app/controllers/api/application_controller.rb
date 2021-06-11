@@ -9,8 +9,9 @@ class Api::ApplicationController < ActionController::API
   before_action :disable_devise_trackable
   # Authorizationヘッダが付いているリクエストはSessionを無効化する
   before_action :disable_session
-  # CSRFトークンのチェックをAuthorizationヘッダが付いていないときのみ行う(Cookie認証用)
-  protect_from_forgery with: :exception, unless: -> { request.authorization }
+  # CSRFトークンのチェック(Cookie認証用)
+  # トークンチェック失敗時にはリクエストのセッションが無効化される
+  protect_from_forgery with: :null_session
 
   private
 
