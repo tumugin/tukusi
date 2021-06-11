@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   namespace :api, format: 'json' do
     namespace :auth do
       resource :login, only: :create
+      resource :logout, only: :create
     end
+    resource :meta, only: :show
 
     authenticated :admin_user do
       # 特権管理者のみ許可するAPI
