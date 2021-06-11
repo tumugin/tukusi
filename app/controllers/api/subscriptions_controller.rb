@@ -31,6 +31,7 @@ class Api::SubscriptionsController < Api::ApplicationController
   def subscription_params
     params[:subscription].permit(
       :enabled,
+      :name,
       :check_interval_seconds,
       :timeout_seconds,
       :target_url,

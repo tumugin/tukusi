@@ -1,11 +1,12 @@
 class Api::SubscriptionForm
   include ActiveModel::Model
 
-  attr_accessor :id, :enabled, :check_interval_seconds, :target_url,
+  attr_accessor :id, :name, :enabled, :check_interval_seconds, :target_url,
                 :target_selector, :subscription_type, :admin_user,
                 :notify_target_ids, :timeout_seconds
 
   validates :id, numericality: { only_integer: true }, allow_nil: true
+  validates :name, presence: true
   validates :enabled, inclusion: { in: [true, false] }
   validates :check_interval_seconds, numericality: { only_integer: true }
   validates :timeout_seconds, numericality: { only_integer: true }
@@ -42,6 +43,7 @@ class Api::SubscriptionForm
 
     notify_targets = NotifyTarget.find(notify_target_ids)
     subscription.assign_attributes(
+      name: name,
       enabled: enabled,
       check_interval_seconds: check_interval_seconds,
       timeout_seconds: timeout_seconds,

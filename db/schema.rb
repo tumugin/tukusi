@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_06_02_192955) do
   end
 
   create_table "subscriptions", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "name", null: false
     t.boolean "enabled", null: false
     t.integer "check_interval_seconds", null: false
     t.string "target_url", null: false
