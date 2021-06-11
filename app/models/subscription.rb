@@ -12,9 +12,20 @@ class Subscription < ApplicationRecord
     where(enabled: true)
   }
   scope :needs_crawl?, -> {
-    joins('LEFT OUTER JOIN (SELECT `crawl_logs`.`subscription_id`, MAX(`crawl_logs`.`started_at`) AS `started_at` FROM `crawl_logs` GROUP BY `crawl_logs`.`subscription_id`) AS `crawl_logs` ON `crawl_logs`.`subscription_id` = `subscriptions`.`id`')
+    # 最悪なクエリだなおい
+    joins('
+      LEFT OUTER JOIN (
+        SELECT
+          `crawl_logs`.`subscription_id`,
+           MAX(`crawl_logs`.`started_at`) AS `started_at`
+        FROM `crawl_logs`
+        GROUP BY `crawl_logs`.`subscription_id`
+      ) AS `crawl_logs`
+      ON
+        `crawl_logs`.`subscription_id` = `subscriptions`.`id`
+    ')
       .where('`crawl_logs`.`started_at` IS NULL')
-      .or(where('TIME_TO_SEC(TIMEDIFF(?, `crawl_logs`.`started_at`)) >= subscriptions.check_interval_seconds', Time.current))
+      .or(where('TIME_TO_SEC(TIMEDIFF(?, `crawl_logs`.`started_at`)) >= `subscriptions`.`check_interval_seconds`', Time.current))
   }
 
   SUBSCRIPTION_TYPE_NOKOGIRI = 'nokogiri'
