@@ -14,11 +14,11 @@ class CreateTables < ActiveRecord::Migration[6.1]
     end
 
     create_table :crawl_logs do |t|
-      t.integer :duration
+      t.float :duration
       t.string :result, null: false
       t.datetime :started_at, null: false
       t.datetime :ended_at
-      t.string :captured_data
+      t.text :captured_data
       t.timestamps
 
       t.belongs_to :subscription

@@ -43,11 +43,11 @@ ActiveRecord::Schema.define(version: 2021_06_02_192955) do
   end
 
   create_table "crawl_logs", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
-    t.integer "duration"
+    t.float "duration"
     t.string "result", null: false
     t.datetime "started_at", null: false
     t.datetime "ended_at"
-    t.string "captured_data"
+    t.text "captured_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "subscription_id"
