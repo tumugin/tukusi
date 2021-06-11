@@ -5,7 +5,7 @@ class Jobs::CrawlLogForm
                 :ended_at, :captured_data, :subscription
 
   validates :id, numericality: { only_integer: true }, allow_nil: true
-  validates :duration, numericality: { only_integer: true }, allow_nil: true
+  validates :duration, numericality: true, allow_nil: true
   validates :result, presence: true, inclusion: { in: CrawlLog::RESULTS }
   validates :started_at, presence: true
   validates :ended_at, presence: true, allow_nil: true
@@ -29,6 +29,8 @@ class Jobs::CrawlLogForm
       ended_at: ended_at,
       captured_data: captured_data
     )
+
+    crawl_log.save!
 
     crawl_log
   end

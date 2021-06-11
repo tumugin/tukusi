@@ -1,7 +1,14 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # deviseのコントローラは使用しないが有効化はしておく
   devise_for :admin_users, skip: :all
+
+  # Sidekiq
+  authenticate :admin_user, -> user { user.is_user_administrator } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   root to: 'top#index'
 
