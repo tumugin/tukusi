@@ -50,4 +50,15 @@ class Subscription < ApplicationRecord
     second = latest_two_updates[1]
     first&.captured_data != second&.captured_data
   end
+
+  def notify!
+    latest = latest_crawl_log
+    notify_targets.find_each do |notify_target|
+      notify_target.notify!(
+        message: "「#{name}」が更新されました！\n#{target_url}",
+        attachment_title: "更新通知: #{name}",
+        attachment_message: "巡回URL: #{target_url}\n巡回時刻: #{latest.started_at}\n巡回にかかった秒数: #{latest.duration}sec"
+      )
+    end
+  end
 end

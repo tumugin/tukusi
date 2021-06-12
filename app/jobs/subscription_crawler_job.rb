@@ -33,7 +33,6 @@ class SubscriptionCrawlerJob < ApplicationJob
       raise ex
     end
 
-
     Jobs::CrawlLogForm.new(
       id: crawl_log_id,
       duration: (Time.current - started_at).seconds,
@@ -42,5 +41,10 @@ class SubscriptionCrawlerJob < ApplicationJob
       ended_at: Time.current,
       captured_data: captured_data,
     ).save!.id
+
+    # 通知処理
+    if subscription.has_update?
+      subscription.notify!
+    end
   end
 end

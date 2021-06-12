@@ -19,4 +19,18 @@ class NotifyTarget < ApplicationRecord
       return nil
     end
   end
+
+  # 通知を送信する
+  # @param [Hash] opts
+  # @option opts [String] :title 通知タイトル
+  # @option opts [String] :attachment_title 通知タイトル(アタッチメント)
+  # @option opts [String] :attachment_message 通知メッセージ(アタッチメント)
+  def notify!(opts)
+    case notify_type
+    when NOTIFY_TYPE_SLACK
+      # Slack通知処理
+    else
+      raise '未実装の通知処理です'
+    end
+  end
 end
