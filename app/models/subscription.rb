@@ -41,4 +41,13 @@ class Subscription < ApplicationRecord
   def needs_crawl?
     latest_crawl_log.nil? || (Time.current - latest_crawl_log.started_at).seconds > check_interval_seconds
   end
+
+  def has_update?
+    latest_two_updates = latest_crawl_logs
+                           .where(result: CrawlLog::RESULT_SUCCESS)
+                           .limit(2)
+    first = latest_two_updates[0]
+    second = latest_two_updates[1]
+    first&.captured_data != second&.captured_data
+  end
 end
