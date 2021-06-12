@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   devise_for :admin_users, skip: :all
 
   # Sidekiq
-  authenticate :admin_user, -> user { user.is_user_administrator } do
+  authenticated :admin_user, -> user { user.is_user_administrator } do
     mount Sidekiq::Web => '/sidekiq'
   end
 
