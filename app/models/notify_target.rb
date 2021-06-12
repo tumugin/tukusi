@@ -1,3 +1,5 @@
+require 'slack-notifier'
+
 class NotifyTarget < ApplicationRecord
   belongs_to :admin_user
   has_one :slack_notify_target, dependent: :destroy
@@ -10,13 +12,12 @@ class NotifyTarget < ApplicationRecord
   # 通知先の詳細を取得する
   # N+1クエリになってしまうので不必要に使用しないこと
   # @return SlackNotifyTarget 通知先がSlackの場合
-  # @return nil 通知先が何らかの理由によって存在しない場合(DBに不整合が生じない限り無い)
   def target_detail
     case notify_type
     when NOTIFY_TYPE_SLACK then
       return slack_notify_target
     else
-      return nil
+      raise '未実装の通知先です'
     end
   end
 
@@ -29,6 +30,17 @@ class NotifyTarget < ApplicationRecord
     case notify_type
     when NOTIFY_TYPE_SLACK
       # Slack通知処理
+      attachment = {
+        fallback: opts[:attachment_message],
+        title: opts[:title],
+        text: opts[:attachment_message],
+        color: 'good',
+      }
+      Slack::Notifier
+        .new(target_detail.webhook_url)
+        .post(
+          text: opts[:message], attachments: [attachment]
+        )
     else
       raise '未実装の通知処理です'
     end

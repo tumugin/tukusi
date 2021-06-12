@@ -220,6 +220,7 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
+    slack-notifier (2.4.0)
     spring (2.1.1)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -284,6 +285,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   selenium-webdriver
   sidekiq
+  slack-notifier
   spring
   sqlite3 (~> 1.4)
   turbolinks (~> 5)
