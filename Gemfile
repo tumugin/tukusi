@@ -41,6 +41,7 @@ gem 'active_model_serializers'
 gem 'kaminari'
 
 gem 'sidekiq'
+gem 'sidekiq-cron'
 gem 'redis-namespace'
 
 gem 'nokogiri'
