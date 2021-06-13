@@ -6,8 +6,10 @@ class NotifyTarget < ApplicationRecord
   has_many :notify_targets_of_subscriptions
   has_many :subscriptions, through: :notify_targets_of_subscriptions
 
-  NOTIFY_TYPE_SLACK = 'slack'
-  NOTIFY_TYPES = [NOTIFY_TYPE_SLACK]
+  NOTIFY_TYPE_SLACK = 'slack'.freeze
+  NOTIFY_TYPES = [
+    NOTIFY_TYPE_SLACK
+  ].freeze
 
   # 通知先の詳細を取得する
   # N+1クエリになってしまうので不必要に使用しないこと

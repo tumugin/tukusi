@@ -28,15 +28,15 @@ class Subscription < ApplicationRecord
       .or(where('TIME_TO_SEC(TIMEDIFF(?, `crawl_logs`.`started_at`)) >= `subscriptions`.`check_interval_seconds`', Time.current))
   }
 
-  SUBSCRIPTION_TYPE_NOKOGIRI = 'nokogiri'
-  SUBSCRIPTION_TYPE_PLAIN = 'plain'
-  SUBSCRIPTION_TYPE_JSON = 'json'
+  SUBSCRIPTION_TYPE_NOKOGIRI = 'nokogiri'.freeze
+  SUBSCRIPTION_TYPE_PLAIN = 'plain'.freeze
+  SUBSCRIPTION_TYPE_JSON = 'json'.freeze
 
   SUBSCRIPTION_TYPES = [
     SUBSCRIPTION_TYPE_NOKOGIRI,
     SUBSCRIPTION_TYPE_PLAIN,
     SUBSCRIPTION_TYPE_JSON,
-  ]
+  ].freeze
 
   def needs_crawl?
     latest_crawl_log.nil? || (Time.current - latest_crawl_log.started_at).seconds > check_interval_seconds

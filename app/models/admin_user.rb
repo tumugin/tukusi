@@ -11,12 +11,12 @@ class AdminUser < ApplicationRecord
          # 一旦今は要らないのでNullにしておく
          jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
 
-  USER_LEVEL_ADMINISTRATOR = 'administrator'
-  USER_LEVEL_SUPERVISOR = 'supervisor'
+  USER_LEVEL_ADMINISTRATOR = 'administrator'.freeze
+  USER_LEVEL_SUPERVISOR = 'supervisor'.freeze
   USER_LEVELS = [
     USER_LEVEL_ADMINISTRATOR,
     USER_LEVEL_SUPERVISOR,
-  ]
+  ].freeze
 
   # 管理者ユーザが特権レベルを持っているかどうか
   # @return bool
