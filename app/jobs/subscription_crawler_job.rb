@@ -1,4 +1,6 @@
 class SubscriptionCrawlerJob < ApplicationJob
+  sidekiq_options retry: false
+
   # @param subscription_id Integer
   def perform(subscription_id)
     # クロール処理を呼び出す
