@@ -13,6 +13,14 @@ class SubscriptionCrawlerJob < ApplicationJob
     captured_data = nil
     begin
       captured_data = subscription.execute_crawl!
+      Jobs::CrawlLogForm.new(
+        id: crawl_log_id,
+        duration: (Time.current - started_at).seconds,
+        result: CrawlLog::RESULT_SUCCESS,
+        started_at: started_at,
+        ended_at: Time.current,
+        captured_data: captured_data,
+      ).save!
       # 通知処理
       if subscription.has_update?
         subscription.notify!
@@ -28,14 +36,5 @@ class SubscriptionCrawlerJob < ApplicationJob
       ).save!
       raise ex
     end
-
-    Jobs::CrawlLogForm.new(
-      id: crawl_log_id,
-      duration: (Time.current - started_at).seconds,
-      result: CrawlLog::RESULT_SUCCESS,
-      started_at: started_at,
-      ended_at: Time.current,
-      captured_data: captured_data,
-    ).save!
   end
 end
