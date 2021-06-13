@@ -3,7 +3,7 @@ SIDEKIQ_CRON_JOBS = {
     # 開発時に有効になっていると不便なので無効化しておく
     status: Rails.env.production? ? 'enabled' : 'disabled',
     cron: '* * * * *',
-    class: SubscriptionCrawlerPollerJob.name,
+    class: 'SubscriptionCrawlerPollerJob',
     description: 'Run crawler job cron.'
   }
 }.freeze
