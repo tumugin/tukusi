@@ -32,6 +32,7 @@ class SubscriptionCrawlerJob < ApplicationJob
         ended_at: Time.current,
         captured_data: captured_data,
       ).save!
+      subscription.notify_failed!
       raise ex
     end
 

@@ -57,7 +57,20 @@ class Subscription < ApplicationRecord
       notify_target.notify!(
         message: "「#{name}」が更新されました！\n#{target_url}",
         attachment_title: "更新通知: #{name}",
-        attachment_message: "巡回URL: #{target_url}\n巡回時刻: #{latest.started_at}\n巡回にかかった秒数: #{latest.duration}sec"
+        attachment_message: "巡回URL: #{target_url}\n巡回時刻: #{latest.started_at}\n巡回にかかった秒数: #{latest.duration}sec",
+        success: true
+      )
+    end
+  end
+
+  def notify_failed!
+    latest = latest_crawl_log
+    notify_targets.find_each do |notify_target|
+      notify_target.notify!(
+        message: "「#{name}」の更新の取得に失敗しました！\n#{target_url}",
+        attachment_title: "[FAILED] 更新通知: #{name}",
+        attachment_message: "巡回URL: #{target_url}\n巡回時刻: #{latest.started_at}\n巡回にかかった秒数: #{latest.duration}sec",
+        success: false
       )
     end
   end

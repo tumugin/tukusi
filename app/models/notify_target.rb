@@ -28,6 +28,7 @@ class NotifyTarget < ApplicationRecord
   # @option opts [String] :title 通知タイトル
   # @option opts [String] :attachment_title 通知タイトル(アタッチメント)
   # @option opts [String] :attachment_message 通知メッセージ(アタッチメント)
+  # @option opts [Boolean] :success 成功したかどうか
   def notify!(opts)
     case notify_type
     when NOTIFY_TYPE_SLACK
@@ -36,7 +37,7 @@ class NotifyTarget < ApplicationRecord
         fallback: opts[:attachment_message],
         title: opts[:title],
         text: opts[:attachment_message],
-        color: 'good',
+        color: opts[:success] ? 'good' : 'danger',
       }
       Slack::Notifier
         .new(target_detail.webhook_url)
