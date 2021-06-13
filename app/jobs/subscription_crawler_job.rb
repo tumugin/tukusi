@@ -17,7 +17,12 @@ class SubscriptionCrawlerJob < ApplicationJob
           url: subscription.target_url,
           selector: subscription.target_selector,
           timeout_seconds: subscription.timeout_seconds
-        ).perform
+        ).perform!
+      when Subscription::SUBSCRIPTION_TYPE_PLAIN then
+        captured_data = Crawler::PlainCrawler.new(
+          url: subscription.target_url,
+          timeout_seconds: subscription.timeout_seconds
+        ).perform!
       else
         raise '未実装のクローラーです'
       end

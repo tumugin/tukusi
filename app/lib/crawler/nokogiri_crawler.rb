@@ -20,7 +20,7 @@ class Crawler::NokogiriCrawler
   end
 
   # @return String
-  def perform
+  def perform!
     document = Nokogiri::HTML(URI.open(url, read_timeout: timeout_seconds_or_nil))
     elements = document.css(selector)
     if elements.empty?
