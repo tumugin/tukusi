@@ -17,6 +17,6 @@ class Crawler::NokogiriCrawler < Crawler::BaseCrawler
     if elements.empty?
       raise '指定されたセレクタの要素が存在しません'
     end
-    elements.first.to_html
+    elements.first.text
   end
 end
