@@ -1,4 +1,4 @@
-class Api::SubscriptionsController < Api::ApplicationController
+class Api::Subscriptions::SubscriptionsController < Api::ApplicationController
   before_action :authenticate_admin_user!
 
   def index

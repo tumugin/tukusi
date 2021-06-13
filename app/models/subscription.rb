@@ -85,4 +85,8 @@ class Subscription < ApplicationRecord
       raise '未実装のクローラーです'
     end
   end
+
+  def perform_crawler_job_later
+    SubscriptionCrawlerJob.perform_later(id)
+  end
 end

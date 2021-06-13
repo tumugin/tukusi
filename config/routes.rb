@@ -22,8 +22,9 @@ Rails.application.routes.draw do
     resources :admin_users, except: [:new, :edit]
     resource :profile, only: [:show, :update]
     resources :notify_targets, except: [:new, :edit]
-    resources :subscriptions, except: [:new, :edit] do
+    resources :subscriptions, module: :subscriptions, except: [:new, :edit] do
       resources :crawl_logs, only: [:index, :show]
+      resource :perform_crawl, only: [:create]
     end
   end
 end
