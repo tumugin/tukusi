@@ -29,7 +29,7 @@ class Api::NotifyTargetForm
       notify_target.assign_attributes({ name: name, notify_type: notify_type })
       notify_target.save!
       target_detail.save!(notify_target)
-      return notify_target
     end
+    notify_target
   end
 end
