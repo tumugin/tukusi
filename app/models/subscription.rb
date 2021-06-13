@@ -62,7 +62,7 @@ class Subscription < ApplicationRecord
     end
   end
 
-  def execute_crawl!
+  def get_crawled_result
     case subscription_type
     when Subscription::SUBSCRIPTION_TYPE_NOKOGIRI then
       return Crawler::NokogiriCrawler.new(

@@ -14,7 +14,7 @@ class SubscriptionCrawlerJob < ApplicationJob
 
     captured_data = nil
     begin
-      captured_data = subscription.execute_crawl!
+      captured_data = subscription.get_crawled_result
       Jobs::CrawlLogForm.new(
         id: crawl_log_id,
         duration: (Time.current - started_at).seconds,
