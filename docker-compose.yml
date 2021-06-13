@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  app:
+    image: ruby:3.0.1
+    user: "${UID}:${GID}"
+    build:
+      context: .
+    env_file:
+      - .env
+    volumes:
+      - .:/app/:cached
+    ports:
+      - 3000:3000
+    depends_on:
+      - mysql
+      - redis
+      - app_sidekiq
+    command: bash -c "cd /app && bundle exec rails server"
+  app_sidekiq:
+    user: "${UID}:${GID}"
+    build:
+      context: .
+    env_file:
+      - .env
+    volumes:
+      - .:/app/:cached
+    depends_on:
+      - mysql
+      - redis
+    command: bash -c "cd /app && bundle exec sidekiq"
+  mysql:
+    image: mariadb:10.6.1
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=tukusi
+      - MYSQL_ROOT_PASSWORD=b8rsqneetts98672ad04ccbl8yvk1g
+      - MYSQL_USER=tuksui
+      - MYSQL_PASSWORD=b8rsqneetts98672ad04ccbl8yvk1g
+  redis:
+    image: redis:6.2.4
+    volumes:
+      - redis_data:/data
+volumes:
+  mysql_data:
+  redis_data:
