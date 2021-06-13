@@ -10,8 +10,13 @@ class SubscriptionCrawlerJob < ApplicationJob
       subscription: subscription
     ).save!.id
 
+    captured_data = nil
     begin
       captured_data = subscription.execute_crawl!
+      # 通知処理
+      if subscription.has_update?
+        subscription.notify!
+      end
     rescue => ex
       Jobs::CrawlLogForm.new(
         id: crawl_log_id,
@@ -19,8 +24,8 @@ class SubscriptionCrawlerJob < ApplicationJob
         result: CrawlLog::RESULT_FAILED,
         started_at: started_at,
         ended_at: Time.current,
-        captured_data: nil,
-      ).save!.id
+        captured_data: captured_data,
+      ).save!
       raise ex
     end
 
@@ -31,11 +36,6 @@ class SubscriptionCrawlerJob < ApplicationJob
       started_at: started_at,
       ended_at: Time.current,
       captured_data: captured_data,
-    ).save!.id
-
-    # 通知処理
-    if subscription.has_update?
-      subscription.notify!
-    end
+    ).save!
   end
 end
