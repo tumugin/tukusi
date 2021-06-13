@@ -15,7 +15,7 @@ services:
       - mysql
       - redis
       - app_sidekiq
-    command: bash -c "cd /app && bundle exec rails server"
+    command: bash -c "cd /app && bundle exec rails server -b 0.0.0.0"
   app_sidekiq:
     user: "${UID}:${GID}"
     build:
