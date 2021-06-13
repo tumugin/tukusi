@@ -23,6 +23,12 @@ class SubscriptionCrawlerJob < ApplicationJob
           url: subscription.target_url,
           timeout_seconds: subscription.timeout_seconds
         ).perform!
+      when Subscription::SUBSCRIPTION_TYPE_JSON then
+        captured_data = Crawler::JsonCrawler.new(
+          url: subscription.target_url,
+          selector: subscription.target_selector,
+          timeout_seconds: subscription.timeout_seconds
+        ).perform!
       else
         raise '未実装のクローラーです'
       end

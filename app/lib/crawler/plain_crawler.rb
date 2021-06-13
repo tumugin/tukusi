@@ -1,20 +1,11 @@
 require 'open-uri'
 
-class Crawler::PlainCrawler
+class Crawler::PlainCrawler < Crawler::BaseCrawler
   attr_accessor :url, :timeout_seconds
 
   def initialize(params = {})
     @url = params[:url]
     @timeout_seconds = params[:timeout_seconds]
-  end
-
-  def timeout_seconds_or_nil
-    # 0秒はタイムアウトしない設定にする
-    if timeout_seconds == 0
-      nil
-    else
-      timeout_seconds
-    end
   end
 
   # @return String
