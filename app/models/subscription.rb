@@ -61,4 +61,28 @@ class Subscription < ApplicationRecord
       )
     end
   end
+
+  def execute_crawl!
+    case subscription_type
+    when Subscription::SUBSCRIPTION_TYPE_NOKOGIRI then
+      return Crawler::NokogiriCrawler.new(
+        url: target_url,
+        selector: target_selector,
+        timeout_seconds: timeout_seconds
+      ).perform!
+    when Subscription::SUBSCRIPTION_TYPE_PLAIN then
+      return Crawler::PlainCrawler.new(
+        url: target_url,
+        timeout_seconds: timeout_seconds
+      ).perform!
+    when Subscription::SUBSCRIPTION_TYPE_JSON then
+      return Crawler::JsonCrawler.new(
+        url: target_url,
+        selector: target_selector,
+        timeout_seconds: timeout_seconds
+      ).perform!
+    else
+      raise '未実装のクローラーです'
+    end
+  end
 end

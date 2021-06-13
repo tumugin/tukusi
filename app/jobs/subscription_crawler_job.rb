@@ -11,27 +11,7 @@ class SubscriptionCrawlerJob < ApplicationJob
     ).save!.id
 
     begin
-      case subscription.subscription_type
-      when Subscription::SUBSCRIPTION_TYPE_NOKOGIRI then
-        captured_data = Crawler::NokogiriCrawler.new(
-          url: subscription.target_url,
-          selector: subscription.target_selector,
-          timeout_seconds: subscription.timeout_seconds
-        ).perform!
-      when Subscription::SUBSCRIPTION_TYPE_PLAIN then
-        captured_data = Crawler::PlainCrawler.new(
-          url: subscription.target_url,
-          timeout_seconds: subscription.timeout_seconds
-        ).perform!
-      when Subscription::SUBSCRIPTION_TYPE_JSON then
-        captured_data = Crawler::JsonCrawler.new(
-          url: subscription.target_url,
-          selector: subscription.target_selector,
-          timeout_seconds: subscription.timeout_seconds
-        ).perform!
-      else
-        raise '未実装のクローラーです'
-      end
+      captured_data = subscription.execute_crawl!
     rescue => ex
       Jobs::CrawlLogForm.new(
         id: crawl_log_id,
