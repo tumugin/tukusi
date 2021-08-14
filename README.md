@@ -33,10 +33,10 @@ Api::AdminUserForm.new(
 
 Start API server and sidekiq server.
 
-```ruby
+```bash
 bundle exec rails server
 ```
 
-```ruby
+```bash
 bundle exec sidekiq
 ```
