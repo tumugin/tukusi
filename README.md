@@ -1,24 +1,42 @@
-# README
+# tukusi - Website update checker server
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+tusksi is a website update checker server made with Rails that can control by JSON API.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- Check updates for HTML documents and JSON documents
+- Send notifications to Slack channel HTML documents are processed by nokogiri gem. Please use a headless browser
+  renderer like rendertron for SPA pages.
 
-* System dependencies
+## Setup
 
-* Configuration
+Setup your database server with rails commands before starting.
 
-* Database creation
+```bash
+bundle install
+bundle exec rails db:create
+bundle exec rails db:schema:load
+```
 
-* Database initialization
+And create your first administrator user by rails console.
 
-* How to run the test suite
+```ruby
+Api::AdminUserForm.new(
+  name: 'username',
+  user_level: AdminUser::USER_LEVEL_ADMINISTRATOR,
+  email: 'example_user@example.com',
+  password: 'your_safe_password_here'
+).save!
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Usage
 
-* Deployment instructions
+Start API server and sidekiq server.
 
-* ...
+```ruby
+bundle exec rails server
+```
+
+```ruby
+bundle exec sidekiq
+```
