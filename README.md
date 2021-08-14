@@ -5,8 +5,9 @@ tusksi is a website update checker server made with Rails that can control by JS
 ## Features
 
 - Check updates for HTML documents and JSON documents
-- Send notifications to Slack channel HTML documents are processed by nokogiri gem. Please use a headless browser
-  renderer like rendertron for SPA pages.
+- Send notifications to Slack channel
+
+HTML documents are processed by nokogiri gem. Please use a headless browser renderer like rendertron for SPA pages.
 
 ## Setup
 
