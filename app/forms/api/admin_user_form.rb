@@ -30,11 +30,9 @@ class Api::AdminUserForm
       .assign_attributes(
         name: name,
         user_level: user_level,
-        email: email,
+        email: email
       )
-    if password.presence
-      admin_user.password = password
-    end
+    admin_user.password = password if password.presence
     admin_user.skip_confirmation!
     admin_user.save!
     admin_user

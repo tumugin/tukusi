@@ -16,16 +16,12 @@ class Api::ApplicationController < ActionController::API
   private
 
   def disable_session
-    if request.authorization
-      request.session_options[:skip] = true
-    end
+    request.session_options[:skip] = true if request.authorization
   end
 
   def disable_devise_trackable
     # devise5で直るはず...
     # ref: https://github.com/heartcombo/devise/pull/4987
-    if request.authorization
-      request.env['devise.skip_trackable'] = true
-    end
+    request.env['devise.skip_trackable'] = true if request.authorization
   end
 end

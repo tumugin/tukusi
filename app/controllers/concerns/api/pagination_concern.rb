@@ -9,12 +9,10 @@ module Api::PaginationConcern
         options[:adapter] = ActiveModelSerializers::Adapter::Json
         options[:key_transform] = :camel_lower
         # ページネーションが必要な時はmetaを付ける
-        if options[:json].try(:current_page) && options[:meta].nil?
-          options[:meta] = pagination_meta(options[:json])
-        end
+        options[:meta] = pagination_meta(options[:json]) if options[:json].try(:current_page) && options[:meta].nil?
       end
       params << options
-      super *params
+      super(*params)
     end
 
     # kaminariから値を取ってくる
@@ -24,7 +22,7 @@ module Api::PaginationConcern
         next_page: object.next_page,
         prev_page: object.prev_page,
         total_pages: object.total_pages,
-        total_count: object.total_count,
+        total_count: object.total_count
       }
     end
   end

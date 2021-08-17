@@ -15,7 +15,7 @@ class AdminUser < ApplicationRecord
   USER_LEVEL_SUPERVISOR = 'supervisor'.freeze
   USER_LEVELS = [
     USER_LEVEL_ADMINISTRATOR,
-    USER_LEVEL_SUPERVISOR,
+    USER_LEVEL_SUPERVISOR
   ].freeze
 
   # 管理者ユーザが特権レベルを持っているかどうか

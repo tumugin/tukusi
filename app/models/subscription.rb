@@ -8,10 +8,10 @@ class Subscription < ApplicationRecord
   has_many :notify_targets_of_subscriptions
   has_many :notify_targets, through: :notify_targets_of_subscriptions
 
-  scope :enabled?, -> {
+  scope :enabled?, lambda {
     where(enabled: true)
   }
-  scope :needs_crawl?, -> {
+  scope :needs_crawl?, lambda {
     # 最悪なクエリだなおい
     joins('
       LEFT OUTER JOIN (
@@ -35,7 +35,7 @@ class Subscription < ApplicationRecord
   SUBSCRIPTION_TYPES = [
     SUBSCRIPTION_TYPE_NOKOGIRI,
     SUBSCRIPTION_TYPE_PLAIN,
-    SUBSCRIPTION_TYPE_JSON,
+    SUBSCRIPTION_TYPE_JSON
   ].freeze
 
   def needs_crawl?
@@ -44,8 +44,8 @@ class Subscription < ApplicationRecord
 
   def has_update?
     latest_two_updates = latest_crawl_logs
-                           .where(result: CrawlLog::RESULT_SUCCESS)
-                           .limit(2)
+                         .where(result: CrawlLog::RESULT_SUCCESS)
+                         .limit(2)
     first = latest_two_updates[0]
     second = latest_two_updates[1]
     first&.captured_data != second&.captured_data
@@ -77,19 +77,19 @@ class Subscription < ApplicationRecord
 
   def get_crawled_result
     case subscription_type
-    when Subscription::SUBSCRIPTION_TYPE_NOKOGIRI then
-      return Crawler::NokogiriCrawler.new(
+    when Subscription::SUBSCRIPTION_TYPE_NOKOGIRI
+      Crawler::NokogiriCrawler.new(
         url: target_url,
         selector: target_selector,
         timeout_seconds: timeout_seconds
       ).perform!
-    when Subscription::SUBSCRIPTION_TYPE_PLAIN then
-      return Crawler::PlainCrawler.new(
+    when Subscription::SUBSCRIPTION_TYPE_PLAIN
+      Crawler::PlainCrawler.new(
         url: target_url,
         timeout_seconds: timeout_seconds
       ).perform!
-    when Subscription::SUBSCRIPTION_TYPE_JSON then
-      return Crawler::JsonCrawler.new(
+    when Subscription::SUBSCRIPTION_TYPE_JSON
+      Crawler::JsonCrawler.new(
         url: target_url,
         selector: target_selector,
         timeout_seconds: timeout_seconds

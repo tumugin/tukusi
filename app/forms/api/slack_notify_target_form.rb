@@ -3,7 +3,7 @@ class Api::SlackNotifyTargetForm
 
   attr_accessor :webhook_url
 
-  validates :webhook_url, presence: true, format: /\A#{URI::regexp(%w(http https))}\z/
+  validates :webhook_url, presence: true, format: /\A#{URI::DEFAULT_PARSER.make_regexp(%w[http https])}\z/
 
   def save!(notify_target)
     validate!

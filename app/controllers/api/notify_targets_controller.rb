@@ -3,8 +3,8 @@ class Api::NotifyTargetsController < Api::ApplicationController
 
   def index
     notify_targets = NotifyTarget
-                       .eager_load(:slack_notify_target)
-                       .page(params[:page] || 1)
+                     .eager_load(:slack_notify_target)
+                     .page(params[:page] || 1)
     render json: notify_targets
   end
 
@@ -15,23 +15,23 @@ class Api::NotifyTargetsController < Api::ApplicationController
 
   def create
     notify_target = Api::NotifyTargetForm
-                      .new({
-                             **notify_target_params,
-                             admin_user: current_admin_user,
-                             target_detail: Api::SlackNotifyTargetForm.new(notify_target_detail)
-                           })
-                      .save!
+                    .new({
+                           **notify_target_params,
+                           admin_user: current_admin_user,
+                           target_detail: Api::SlackNotifyTargetForm.new(notify_target_detail)
+                         })
+                    .save!
     render json: notify_target
   end
 
   def update
     notify_target = Api::NotifyTargetForm
-                      .new({
-                             **notify_target_params,
-                             target_detail: Api::SlackNotifyTargetForm.new(notify_target_detail),
-                             id: params[:id]
-                           })
-                      .save!
+                    .new({
+                           **notify_target_params,
+                           target_detail: Api::SlackNotifyTargetForm.new(notify_target_detail),
+                           id: params[:id]
+                         })
+                    .save!
     render json: notify_target
   end
 

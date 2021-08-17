@@ -19,8 +19,8 @@ class Api::AdminUsersController < Api::ApplicationController
 
   def update
     admin_user = Api::AdminUserForm
-                   .new(id: params[:id], **admin_user_params)
-                   .save!
+                 .new(id: params[:id], **admin_user_params)
+                 .save!
     render json: admin_user
   end
 
