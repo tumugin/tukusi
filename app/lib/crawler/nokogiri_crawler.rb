@@ -13,7 +13,7 @@ class Crawler::NokogiriCrawler < Crawler::BaseCrawler
 
   # @return String
   def perform!
-    document = Nokogiri::HTML(URI.open(url, read_timeout: timeout_seconds_or_nil))
+    document = Nokogiri::HTML(URI.parse(url).open(read_timeout: timeout_seconds_or_nil))
     elements = document.css(selector)
     raise '指定されたセレクタの要素が存在しません' if elements.empty?
 
