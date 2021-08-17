@@ -66,6 +66,8 @@ group :development do
   # For IDE Debugging
   gem 'ruby-debug-ide'
   gem 'debase'
+  # lint
+  gem 'rubocop-rails'
 end
 
 group :test do

@@ -1,0 +1,12 @@
+require: rubocop-rails
+
+AllCops:
+  NewCops: enable
+Style/AsciiComments:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
