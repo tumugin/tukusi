@@ -16,8 +16,8 @@ class NotifyTarget < ApplicationRecord
   # @return SlackNotifyTarget 通知先がSlackの場合
   def target_detail
     case notify_type
-    when NOTIFY_TYPE_SLACK
-      slack_notify_target
+    when NOTIFY_TYPE_SLACK then
+      return slack_notify_target
     else
       raise '未実装の通知先です'
     end
@@ -37,7 +37,7 @@ class NotifyTarget < ApplicationRecord
         fallback: opts[:attachment_message],
         title: opts[:title],
         text: opts[:attachment_message],
-        color: opts[:success] ? 'good' : 'danger'
+        color: opts[:success] ? 'good' : 'danger',
       }
       Slack::Notifier
         .new(target_detail.webhook_url)

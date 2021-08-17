@@ -8,4 +8,6 @@ SIDEKIQ_CRON_JOBS = {
   }
 }.freeze
 
-Sidekiq::Cron::Job.load_from_hash(SIDEKIQ_CRON_JOBS) if Sidekiq.server?
+if Sidekiq.server?
+  Sidekiq::Cron::Job.load_from_hash(SIDEKIQ_CRON_JOBS)
+end

@@ -6,9 +6,9 @@ class Api::Auth::LoginsController < Api::ApplicationController
     resource = warden.authenticate!(auth_options)
     sign_in(scope, resource)
     token = Warden::JWTAuth::UserEncoder
-            .new
-            .call(current_admin_user, scope, nil)
-            .first
+              .new
+              .call(current_admin_user, scope, nil)
+              .first
     render json: { token: token }
   end
 

@@ -10,7 +10,7 @@ class Api::SubscriptionForm
   validates :enabled, inclusion: { in: [true, false] }
   validates :check_interval_seconds, numericality: { only_integer: true }
   validates :timeout_seconds, numericality: { only_integer: true }
-  validates :target_url, presence: true, format: /\A#{URI::DEFAULT_PARSER.make_regexp(%w[http https])}\z/
+  validates :target_url, presence: true, format: /\A#{URI::regexp(%w(http https))}\z/
   validates :target_selector, presence: true, if: :needs_target_selector_check?
   validates :subscription_type, presence: true, inclusion: { in: Subscription::SUBSCRIPTION_TYPES }
   validates :admin_user, presence: true, if: :needs_admin_user_check?
@@ -27,7 +27,7 @@ class Api::SubscriptionForm
   def needs_target_selector_check?
     [
       Subscription::SUBSCRIPTION_TYPE_JSON,
-      Subscription::SUBSCRIPTION_TYPE_NOKOGIRI
+      Subscription::SUBSCRIPTION_TYPE_NOKOGIRI,
     ].include?(subscription_type)
   end
 
