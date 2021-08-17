@@ -5,7 +5,7 @@ class Subscription < ApplicationRecord
   has_many :latest_crawl_logs, -> { order(id: :desc) }, class_name: 'CrawlLog'
   has_one :latest_crawl_log, -> { order(id: :desc) }, class_name: 'CrawlLog'
 
-  has_many :notify_targets_of_subscriptions
+  has_many :notify_targets_of_subscriptions, dependent: :destroy
   has_many :notify_targets, through: :notify_targets_of_subscriptions
 
   scope :enabled?, lambda {
