@@ -39,7 +39,7 @@ class CreateTables < ActiveRecord::Migration[6.1]
       t.belongs_to :notify_target
     end
 
-    create_table :notify_targets_of_subscriptions, id: false do |t|
+    create_table :notify_targets_of_subscriptions, id: false do |t| # rubocop:disable Rails/CreateTableWithTimestamps
       t.belongs_to :subscription
       t.belongs_to :notify_target
     end

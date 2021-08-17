@@ -40,10 +40,12 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration[6.1]
       t.string :jti, null: false
     end
 
-    add_index :admin_users, :email, unique: true
-    add_index :admin_users, :reset_password_token, unique: true
-    add_index :admin_users, :confirmation_token, unique: true
-    add_index :admin_users, :unlock_token, unique: true
-    add_index :admin_users, :jti, unique: true
+    change_table :admin_users, bulk: true do |t|
+      t.add_index :email, unique: true
+      t.add_index :reset_password_token, unique: true
+      t.add_index :confirmation_token, unique: true
+      t.add_index :unlock_token, unique: true
+      t.add_index :jti, unique: true
+    end
   end
 end

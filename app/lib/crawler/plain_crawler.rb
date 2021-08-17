@@ -6,6 +6,7 @@ class Crawler::PlainCrawler < Crawler::BaseCrawler
   def initialize(params = {})
     @url = params[:url]
     @timeout_seconds = params[:timeout_seconds]
+    super()
   end
 
   # @return String

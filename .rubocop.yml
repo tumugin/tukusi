@@ -12,3 +12,7 @@ Style/Documentation:
   Enabled: false
 Style/SymbolArray:
   Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false

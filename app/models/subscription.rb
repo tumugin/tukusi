@@ -25,7 +25,12 @@ class Subscription < ApplicationRecord
         `crawl_logs`.`subscription_id` = `subscriptions`.`id`
     ')
       .where('`crawl_logs`.`started_at` IS NULL')
-      .or(where('TIME_TO_SEC(TIMEDIFF(?, `crawl_logs`.`started_at`)) >= `subscriptions`.`check_interval_seconds`', Time.current))
+      .or(
+        where(
+          'TIME_TO_SEC(TIMEDIFF(?, `crawl_logs`.`started_at`)) >= `subscriptions`.`check_interval_seconds`',
+          Time.current
+        )
+      )
   }
 
   SUBSCRIPTION_TYPE_NOKOGIRI = 'nokogiri'.freeze
@@ -42,7 +47,7 @@ class Subscription < ApplicationRecord
     latest_crawl_log.nil? || (Time.current - latest_crawl_log.started_at).seconds > check_interval_seconds
   end
 
-  def has_update?
+  def update?
     latest_two_updates = latest_crawl_logs
                          .where(result: CrawlLog::RESULT_SUCCESS)
                          .limit(2)
@@ -75,7 +80,7 @@ class Subscription < ApplicationRecord
     end
   end
 
-  def get_crawled_result
+  def fetch_crawled_result
     case subscription_type
     when Subscription::SUBSCRIPTION_TYPE_NOKOGIRI
       Crawler::NokogiriCrawler.new(
