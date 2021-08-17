@@ -1,6 +1,6 @@
 class Api::AdminUsersController < Api::ApplicationController
   before_action :authenticate_admin_user!
-  before_action -> { render json: {}, status: :unauthorized unless current_admin_user.is_user_administrator }
+  before_action -> { render json: {}, status: :unauthorized unless current_admin_user.user_administrator? }
 
   def index
     admin_users = AdminUser.page(params[:page] || 1)
@@ -19,8 +19,8 @@ class Api::AdminUsersController < Api::ApplicationController
 
   def update
     admin_user = Api::AdminUserForm
-                   .new(id: params[:id], **admin_user_params)
-                   .save!
+                 .new(id: params[:id], **admin_user_params)
+                 .save!
     render json: admin_user
   end
 

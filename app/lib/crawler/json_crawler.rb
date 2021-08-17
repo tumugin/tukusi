@@ -8,6 +8,7 @@ class Crawler::JsonCrawler < Crawler::BaseCrawler
     @url = params[:url]
     @selector = params[:selector]
     @timeout_seconds = params[:timeout_seconds]
+    super()
   end
 
   # @return String

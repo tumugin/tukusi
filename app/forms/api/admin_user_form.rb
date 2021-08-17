@@ -13,7 +13,7 @@ class Api::AdminUserForm
     id.nil?
   end
 
-  def get_admin_user
+  def admin_user_or_create
     if id.nil?
       AdminUser.new(
         jti: SecureRandom.uuid
@@ -25,16 +25,14 @@ class Api::AdminUserForm
 
   def save!
     validate!
-    admin_user = get_admin_user
+    admin_user = admin_user_or_create
     admin_user
       .assign_attributes(
         name: name,
         user_level: user_level,
-        email: email,
+        email: email
       )
-    if password.presence
-      admin_user.password = password
-    end
+    admin_user.password = password if password.presence
     admin_user.skip_confirmation!
     admin_user.save!
     admin_user

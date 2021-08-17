@@ -3,8 +3,8 @@ class Api::Subscriptions::SubscriptionsController < Api::ApplicationController
 
   def index
     subscriptions = Subscription
-                      .preload(:notify_targets)
-                      .page(params[:page] || 1)
+                    .preload(:notify_targets)
+                    .page(params[:page] || 1)
     render json: subscriptions
   end
 
@@ -39,7 +39,7 @@ class Api::Subscriptions::SubscriptionsController < Api::ApplicationController
       :target_url,
       :target_selector,
       :subscription_type,
-      notify_target_ids: [],
+      notify_target_ids: []
     )
   end
 end
