@@ -15,10 +15,10 @@ class Api::NotifyTargetForm
   end
 
   def get_notify_target
-    if !id.nil?
-      NotifyTarget.find(id)
-    else
+    if id.nil?
       NotifyTarget.new(admin_user: admin_user)
+    else
+      NotifyTarget.find(id)
     end
   end
 

@@ -9,6 +9,6 @@ class CrawlLog < ApplicationRecord
     RESULT_RUNNING,
     RESULT_FAILED,
     RESULT_NOTIFY_FAILED,
-    RESULT_SUCCESS,
+    RESULT_SUCCESS
   ].freeze
 end

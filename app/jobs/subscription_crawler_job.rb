@@ -21,36 +21,34 @@ class SubscriptionCrawlerJob < ApplicationJob
         result: CrawlLog::RESULT_SUCCESS,
         started_at: started_at,
         ended_at: Time.current,
-        captured_data: captured_data,
+        captured_data: captured_data
       ).save!
-    rescue => ex
+    rescue StandardError => e
       Jobs::CrawlLogForm.new(
         id: crawl_log_id,
         duration: (Time.current - started_at).seconds,
         result: CrawlLog::RESULT_FAILED,
         started_at: started_at,
         ended_at: Time.current,
-        captured_data: captured_data,
+        captured_data: captured_data
       ).save!
       subscription.notify_failed!
-      raise ex
+      raise e
     end
 
     begin
       # 通知処理
-      if subscription.has_update?
-        subscription.notify!
-      end
-    rescue => ex
+      subscription.notify! if subscription.has_update?
+    rescue StandardError => e
       Jobs::CrawlLogForm.new(
         id: crawl_log_id,
         duration: (Time.current - started_at).seconds,
         result: CrawlLog::RESULT_NOTIFY_FAILED,
         started_at: started_at,
         ended_at: Time.current,
-        captured_data: captured_data,
+        captured_data: captured_data
       ).save!
-      raise ex
+      raise e
     end
   end
 end
