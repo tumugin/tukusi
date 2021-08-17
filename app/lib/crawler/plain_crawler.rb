@@ -11,6 +11,6 @@ class Crawler::PlainCrawler < Crawler::BaseCrawler
 
   # @return String
   def perform!
-    URI.open(url, read_timeout: timeout_seconds_or_nil).read
+    URI.parse(url).open(read_timeout: timeout_seconds_or_nil).read
   end
 end

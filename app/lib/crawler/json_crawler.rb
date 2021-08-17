@@ -13,7 +13,7 @@ class Crawler::JsonCrawler < Crawler::BaseCrawler
 
   # @return String
   def perform!
-    plain_json = URI.open(url, read_timeout: timeout_seconds_or_nil).read
+    plain_json = URI.parse(url).open(read_timeout: timeout_seconds_or_nil).read
     parsed_json = JSON.parse(plain_json)
     JsonPath.new(selector).on(parsed_json).to_json
   end
