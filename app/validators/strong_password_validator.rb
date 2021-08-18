@@ -5,7 +5,7 @@ class StrongPasswordValidator < ActiveModel::EachValidator
     record.errors.add(
       attribute,
       options[:message] ||
-        "Password must be at least #{Devise.password_length.min} characters and no more than #{Devise.password_length.max} characters." # rubocop:disable Style/LineLength
+        "Password must be at least #{Devise.password_length.min} characters and no more than #{Devise.password_length.max} characters." # rubocop:disable Layout/LineLength
     )
   end
 end
