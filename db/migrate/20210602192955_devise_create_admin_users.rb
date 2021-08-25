@@ -41,11 +41,11 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration[6.1]
     end
 
     change_table :admin_users, bulk: true do |t|
-      t.add_index :email, unique: true
-      t.add_index :reset_password_token, unique: true
-      t.add_index :confirmation_token, unique: true
-      t.add_index :unlock_token, unique: true
-      t.add_index :jti, unique: true
+      t.index :email, unique: true
+      t.index :reset_password_token, unique: true
+      t.index :confirmation_token, unique: true
+      t.index :unlock_token, unique: true
+      t.index :jti, unique: true
     end
   end
 end
