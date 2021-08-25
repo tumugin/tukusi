@@ -68,9 +68,11 @@ group :development do
   gem 'ruby-debug-ide'
   # lint
   gem 'rubocop-rails'
+  gem 'rubocop-rspec'
 end
 
 group :test do
+  gem 'rspec-rails'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver'
