@@ -13,8 +13,6 @@ FactoryBot.define do
       user_level { AdminUser::USER_LEVEL_SUPERVISOR }
     end
 
-    before(:create) do |admin_user|
-      admin_user.skip_confirmation!
-    end
+    before(:create, &:skip_confirmation!)
   end
 end
