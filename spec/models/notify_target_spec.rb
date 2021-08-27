@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe NotifyTarget, type: :model do
+  describe 'target_detail' do
+    it 'with Slack notify target' do
+      notify_target = build(:notify_target, :notify_type_slack)
+      expect(notify_target.target_detail).to be_a_kind_of(SlackNotifyTarget)
+    end
+  end
+
   describe 'notify!' do
     it 'with Slack notify target' do
       notify_target = build(:notify_target, :notify_type_slack)

@@ -12,5 +12,7 @@ FactoryBot.define do
     trait :supervisor do
       user_level { AdminUser::USER_LEVEL_SUPERVISOR }
     end
+
+    before(:create, &:skip_confirmation!)
   end
 end

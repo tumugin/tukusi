@@ -20,3 +20,5 @@ Metrics/AbcSize:
   Enabled: false
 RSpec/ExampleLength:
   Enabled: false
+Metrics/BlockLength:
+  Enabled: false
