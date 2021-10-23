@@ -44,6 +44,14 @@ services:
     image: redis:6.2.4
     volumes:
       - redis_data:/data
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    ports:
+      - "8002:8080"
+    volumes:
+      - ./etc/docs/oas3/:/oas3
+    environment:
+      SWAGGER_JSON: /oas3/openapi.yaml
 volumes:
   mysql_data:
   redis_data:
