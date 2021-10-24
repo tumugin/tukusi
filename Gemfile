@@ -29,6 +29,8 @@ gem 'bcrypt', '~> 3.1'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.9.1', require: false
 
+gem 'rack-cors'
+
 # devise
 gem 'devise'
 gem 'devise-jwt'

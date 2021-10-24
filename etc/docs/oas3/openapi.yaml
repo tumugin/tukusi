@@ -8,7 +8,19 @@ servers:
   - url: 'http://localhost:3000'
 security:
   - BearerAuth: [ ]
-paths: { }
+paths:
+  /api/meta:
+    get:
+      tags:
+        - meta
+      description: get meta infomation like CSRF token.
+      responses:
+        200:
+          description: meta infomation
+          content:
+            application/json:
+              schema:
+                $ref: './components/schemas/Meta.yaml'
 components:
   securitySchemes:
     BearerAuth:

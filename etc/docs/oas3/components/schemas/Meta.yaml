@@ -1,0 +1,5 @@
+type: object
+properties:
+  csrfToken:
+    description: CSRF token
+    type: string
