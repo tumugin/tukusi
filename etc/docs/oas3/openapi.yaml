@@ -9,7 +9,7 @@ servers:
 security:
   - BearerAuth: [ ]
 paths:
-  /api/metas:
+  /api/meta:
     get:
       description: get meta infomation like CSRF token.
       responses:
