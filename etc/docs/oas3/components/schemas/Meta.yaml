@@ -1,0 +1,4 @@
+type: object
+properties:
+  csrfToken:
+    type: string
