@@ -11,6 +11,8 @@ security:
 paths:
   /api/meta:
     get:
+      tags:
+        - meta
       description: get meta infomation like CSRF token.
       responses:
         200:
