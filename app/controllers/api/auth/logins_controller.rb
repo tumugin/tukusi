@@ -9,7 +9,7 @@ class Api::Auth::LoginsController < Api::ApplicationController
             .new
             .call(current_admin_user, scope, nil)
             .first
-    render json: { token: token }
+    render json: Util::HashCamelCaseConverter.convert({ token: token })
   end
 
   private

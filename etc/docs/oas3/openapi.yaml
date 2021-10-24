@@ -14,7 +14,7 @@ paths:
       description: get meta infomation like CSRF token.
       responses:
         200:
-          description: meta infomation like CSRF token.
+          description: meta infomation
           content:
             application/json:
               schema:
