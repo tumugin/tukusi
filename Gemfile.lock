@@ -205,10 +205,10 @@ GEM
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.6.0)
-    rack (2.2.3)
+    rack (2.2.3.1)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
-    rack-mini-profiler (2.3.3)
+    rack-mini-profiler (3.0.0)
       rack (>= 1.2.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -379,7 +379,7 @@ DEPENDENCIES
   nokogiri
   puma (~> 6.0)
   rack-cors
-  rack-mini-profiler (~> 2.3)
+  rack-mini-profiler (~> 3.0)
   rails (~> 7.0.3)
   redis (~> 4.6)
   redis-namespace
