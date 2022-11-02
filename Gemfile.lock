@@ -146,7 +146,7 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     jsonapi-renderer (0.2.2)
-    jsonpath (1.1.0)
+    jsonpath (1.1.2)
       multi_json
     jwt (2.5.0)
     kaminari (1.2.2)
